@@ -1,26 +1,48 @@
 // ===============================
-// CENTRAL BANK DAILY RATES
+// FETCH LIVE BANK RATES FROM RATE.AM
 // ===============================
 
-async function fetchDailyRates() {
-    const today = new Date().toISOString().split("T")[0];
-    const url = `https://api.cba.am/exchangeRates?date=${today}`;
+async function fetchBankRates() {
+    const url = "https://rate.am/ws/mobile/v2/rates";
 
     try {
         const response = await fetch(url);
         const data = await response.json();
 
-        const rates = {};
-        data.forEach(item => {
-            rates[item.ISO] = item.Rate;
+        const banks = [
+            "Acba Bank",
+            "Ameriabank",
+            "IDBank",
+            "Fast Bank",
+            "Inecobank",
+            "Evocabank"
+        ];
+
+        const bankRates = {};
+
+        data.banks.forEach(bank => {
+            if (banks.includes(bank.name)) {
+                bankRates[bank.name] = {
+                    USD: {
+                        buy: bank.rates.USD.buy,
+                        sell: bank.rates.USD.sell
+                    },
+                    EUR: {
+                        buy: bank.rates.EUR.buy,
+                        sell: bank.rates.EUR.sell
+                    },
+                    AMD: {
+                        buy: 1,
+                        sell: 1
+                    }
+                };
+            }
         });
 
-        // FIX: AMD is the base currency, so define it manually
-        rates["AMD"] = 1;
+        return bankRates;
 
-        return rates;
     } catch (err) {
-        console.error("Rate fetch failed:", err);
+        console.error("Failed to fetch bank rates:", err);
         return null;
     }
 }
@@ -100,26 +122,39 @@ async function updateConversion() {
         return;
     }
 
-    const rates = await fetchDailyRates();
-    if (!rates) {
+    const bankRates = await fetchBankRates();
+    if (!bankRates) {
         amountTo.textContent = "Error";
         return;
     }
 
+    const bank = bankSelectedName.textContent.trim();
     const from = currencyFrom.value;
     const to = currencyTo.value;
 
-    const fromRate = rates[from];
-    const toRate = rates[to];
+    const rates = bankRates[bank];
 
-    if (!fromRate || !toRate) {
+    if (!rates || !rates[from] || !rates[to]) {
         amountTo.textContent = "0.00";
         return;
     }
 
-    // Convert: FROM → AMD → TO
-    const amdValue = amount * fromRate;
-    const result = amdValue / toRate;
+    let result;
+
+    // Rate.am logic:
+    // Foreign → AMD = BUY
+    // AMD → Foreign = SELL
+
+    if (from === "AMD" && to !== "AMD") {
+        result = amount / rates[to].sell;
+    } else if (from !== "AMD" && to === "AMD") {
+        result = amount * rates[from].buy;
+    } else if (from !== "AMD" && to !== "AMD") {
+        const amdValue = amount * rates[from].buy;
+        result = amdValue / rates[to].sell;
+    } else {
+        result = amount;
+    }
 
     amountTo.textContent = result.toFixed(2);
 }
