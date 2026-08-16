@@ -1,3 +1,103 @@
+/* GENERAL PAGE LAYOUT */
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 300px;
+    margin: 40px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+/* BANK DROPDOWN */
+.bank-dropdown {
+    margin-bottom: 20px;
+}
+
+.bank-selected {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.bank-logo-small {
+    width: 20px;
+    height: 20px;
+}
+
+.bank-list {
+    margin-top: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background: #fff;
+    padding: 5px;
+}
+
+.bank-item {
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.bank-item:hover {
+    background: #eee;
+}
+
+.hidden {
+    display: none;
+}
+
+/* CURRENCY PAIR */
+.currency-pair {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.currency-box {
+    display: flex;
+    flex-direction: column;
+    width: 110px;
+}
+
+.currency-select {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.flag-icon {
+    width: 22px;
+    height: 22px;
+}
+
+.amount-input {
+    margin-top: 6px;
+    padding: 6px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.no-spin::-webkit-inner-spin-button,
+.no-spin::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* REVERSE BUTTON — ORIGINAL WORKING VERSION */
 .reverse-wrapper {
     display: flex;
     justify-content: center;
@@ -15,4 +115,21 @@
     cursor: pointer;
     height: 18px;
     width: 18px;
+}
+
+/* RESULT TEXT */
+.result-text {
+    margin-top: 6px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* RATES DISPLAY */
+.rates-display {
+    margin-top: 20px;
+    padding: 10px;
+    background: #eee;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 14px;
 }
