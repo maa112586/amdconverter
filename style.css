@@ -5,7 +5,7 @@ body {
 }
 
 .container {
-    width: 340px;
+    width: 360px;
     margin: auto;
     background: white;
     padding: 20px;
@@ -31,6 +31,16 @@ input, select {
     border: 1px solid #d0d0d0;
     border-radius: 8px;
     font-size: 16px;
+}
+
+/* Remove number input arrows */
+.no-spin::-webkit-inner-spin-button,
+.no-spin::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.no-spin {
+    -moz-appearance: textfield;
 }
 
 /* BANK DROPDOWN */
@@ -89,17 +99,52 @@ input, select {
 
 .currency-pair {
     display: flex;
-    gap: 15px;
+    gap: 10px;
     margin-top: 20px;
+    align-items: center;
 }
 
 .currency-box {
     flex: 1;
 }
 
-.currency-box select,
-.currency-box input {
-    margin-bottom: 10px;
+.currency-select {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.flag-icon {
+    width: 26px;
+    height: 26px;
+    border-radius: 4px;
+    object-fit: cover;
+}
+
+/* Reverse button */
+
+.reverse-btn {
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: none;
+    background: #007bff;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    height: 42px;
+    margin-top: 22px;
+}
+
+.reverse-btn:hover {
+    background: #005fcc;
+}
+
+/* Result text */
+
+.result-text {
+    font-size: 20px;
+    font-weight: normal;
+    padding: 10px 0;
 }
 
 /* RATES */
@@ -107,5 +152,7 @@ input, select {
 .rates-display {
     margin-top: 15px;
     text-align: center;
-    font-weight: bold;
+    font-size: 12px;
+    font-weight: normal;
+    color: #555;
 }
