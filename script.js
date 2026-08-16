@@ -42,7 +42,7 @@ function updateFlags() {
 function updateRates() {
     const bank = bankSelectedName.textContent;
     const r = rates[bank];
-    ratesDiv.innerHTML = `USD: Buy ${r.USD.buy} / Sell ${r.USD.sell} | EUR: Buy ${r.EUR.buy} / Sell ${r.EUR.sell}`;
+    ratesDiv.innerHTML = `USD: Buy ${r.USD.buy} / Sell ${r.USD.sell} • EUR: Buy ${r.EUR.buy} / Sell ${r.EUR.sell}`;
 }
 
 function convertCurrencyPair() {
