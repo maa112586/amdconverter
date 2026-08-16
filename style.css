@@ -5,7 +5,7 @@ body {
 }
 
 .container {
-    width: 320px;
+    width: 340px;
     margin: auto;
     background: white;
     padding: 20px;
@@ -31,12 +31,6 @@ input, select {
     border: 1px solid #d0d0d0;
     border-radius: 8px;
     font-size: 16px;
-}
-
-.flag-row {
-    text-align: center;
-    margin-bottom: 10px;
-    font-weight: bold;
 }
 
 /* BANK DROPDOWN */
@@ -91,27 +85,21 @@ input, select {
     display: none;
 }
 
-/* DIRECTION BUTTONS */
+/* CURRENCY PAIR */
 
-.direction-buttons {
+.currency-pair {
     display: flex;
-    gap: 10px;
-    margin-top: 15px;
+    gap: 15px;
+    margin-top: 20px;
 }
 
-.direction-buttons button {
+.currency-box {
     flex: 1;
-    padding: 10px;
-    border-radius: 8px;
-    border: none;
-    background: #e0e0e0;
-    cursor: pointer;
-    font-size: 16px;
 }
 
-.direction-buttons button.active {
-    background: #007bff;
-    color: white;
+.currency-box select,
+.currency-box input {
+    margin-bottom: 10px;
 }
 
 /* RATES */
