@@ -1,3 +1,23 @@
+const flagRow = document.getElementById("flagRow");
+
+function updateFlags() {
+    const currency = currencySelect.value;
+    if (currency === "USD") {
+        flagRow.textContent = "USD ↔ AMD";
+    } else {
+        flagRow.textContent = "EUR ↔ AMD";
+    }
+}
+
+const bankLogos = {
+    "Acba Bank": "icons/acba.png",
+    "Ameriabank": "icons/ameria.png",
+    "IDBank": "icons/idbank.png",
+    "Fast Bank": "icons/fastbank.png",
+    "Inecobank": "icons/ineco.png",
+    "Evocabank": "icons/evoca.png"
+};
+
 const rates = {
     "Acba Bank": { USD: { buy: 385, sell: 392 }, EUR: { buy: 415, sell: 422 } },
     "Ameriabank": { USD: { buy: 386, sell: 393 }, EUR: { buy: 416, sell: 423 } },
@@ -77,7 +97,14 @@ fromAMDBtn.onclick = () => {
 };
 
 bankSelect.onchange = () => {
-    updateLogo();
+    function updateLogo() {
+    const bank = bankSelect.value;
+    const logoPath = bankLogos[bank];
+    if (logoPath) {
+        bankLogo.src = logoPath;
+    }
+}
+;
     updateRates();
     convert();
 };
@@ -89,5 +116,12 @@ currencySelect.onchange = () => {
 
 amountInput.oninput = convert;
 
-updateLogo();
+function updateLogo() {
+    const bank = bankSelect.value;
+    const logoPath = bankLogos[bank];
+    if (logoPath) {
+        bankLogo.src = logoPath;
+    }
+}
+updateFlags();
 updateRates();
