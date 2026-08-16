@@ -88,3 +88,53 @@ button:focus {
     text-align: center;
     color: #666;
 }
+
+.bank-dropdown {
+    position: relative;
+}
+
+.bank-selected {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+    border: 1px solid #d0d0d0;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #fff;
+}
+
+.bank-logo-small {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.bank-list {
+    position: absolute;
+    top: 45px;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border: 1px solid #d0d0d0;
+    border-radius: 8px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+    z-index: 10;
+}
+
+.bank-item {
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.bank-item:hover {
+    background: #f0f0f0;
+}
+
+.hidden {
+    display: none;
+}
