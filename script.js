@@ -1,3 +1,5 @@
+// ---------------- FLAGS ----------------
+
 function updateFlags() {
     const currency = currencySelect.value;
     if (currency === "USD") {
@@ -6,6 +8,8 @@ function updateFlags() {
         flagRow.textContent = "EUR ↔ AMD";
     }
 }
+
+// ---------------- BANK LOGOS (your exact filenames) ----------------
 
 const bankLogos = {
     "Acba Bank": "icons/acba.png",
@@ -16,6 +20,8 @@ const bankLogos = {
     "Evocabank": "icons/evoca.png"
 };
 
+// ---------------- RATES ----------------
+
 const rates = {
     "Acba Bank": { USD: { buy: 385, sell: 392 }, EUR: { buy: 415, sell: 422 } },
     "Ameriabank": { USD: { buy: 386, sell: 393 }, EUR: { buy: 416, sell: 423 } },
@@ -25,7 +31,11 @@ const rates = {
     "Evocabank": { USD: { buy: 382, sell: 389 }, EUR: { buy: 412, sell: 419 } }
 };
 
+// ---------------- GLOBAL STATE ----------------
+
 let direction = "toAMD";
+
+// ---------------- ELEMENTS ----------------
 
 const currencySelect = document.getElementById("currencySelect");
 const amountInput = document.getElementById("amountInput");
@@ -42,12 +52,16 @@ const bankSelectedName = document.getElementById("bankSelectedName");
 const bankList = document.getElementById("bankList");
 const bankItems = document.querySelectorAll(".bank-item");
 
+// ---------------- UPDATE RATES ----------------
+
 function updateRates() {
     const bank = bankSelectedName.textContent;
     const currency = currencySelect.value;
     const r = rates[bank][currency];
     ratesDiv.innerHTML = `Buy: ${r.buy} | Sell: ${r.sell}`;
 }
+
+// ---------------- CONVERSION ----------------
 
 function convert() {
     const bank = bankSelectedName.textContent;
@@ -71,6 +85,8 @@ function convert() {
     resultOutput.value = result.toFixed(2);
 }
 
+// ---------------- BUTTONS ----------------
+
 toAMDBtn.onclick = () => {
     direction = "toAMD";
     toAMDBtn.classList.add("active");
@@ -84,6 +100,8 @@ fromAMDBtn.onclick = () => {
     toAMDBtn.classList.remove("active");
     convert();
 };
+
+// ---------------- CUSTOM BANK DROPDOWN ----------------
 
 bankSelected.onclick = () => {
     bankList.classList.toggle("hidden");
@@ -103,6 +121,8 @@ bankItems.forEach(item => {
     };
 });
 
+// ---------------- OTHER EVENTS ----------------
+
 currencySelect.onchange = () => {
     updateFlags();
     updateRates();
@@ -110,6 +130,8 @@ currencySelect.onchange = () => {
 };
 
 amountInput.oninput = convert;
+
+// ---------------- INITIAL LOAD ----------------
 
 updateFlags();
 updateRates();
