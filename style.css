@@ -5,7 +5,7 @@ body {
 }
 
 .container {
-    width: 250px;
+    width: 240px;
     margin: auto;
     background: white;
     padding: 12px;
@@ -13,7 +13,7 @@ body {
     box-shadow: 0 4px 14px rgba(0,0,0,0.1);
 }
 
-/* NEW: spacing for bank dropdown */
+/* Spacing for bank dropdown */
 .top-spacing {
     margin-top: 6px;
 }
@@ -75,7 +75,7 @@ body {
 /* CURRENCY PAIR */
 .currency-pair {
     display: flex;
-    gap: 6px;
+    gap: 4px;
     margin-top: 8px;
     align-items: flex-start;
 }
@@ -85,22 +85,23 @@ body {
     min-width: 0;
 }
 
+/* Narrower currency selector */
 .currency-select {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 4px;
 }
 
 .flag-icon {
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
     border-radius: 4px;
     object-fit: cover;
 }
 
 select {
-    padding: 5px;
-    font-size: 12px;
+    padding: 4px;
+    font-size: 11px;
     border-radius: 6px;
     border: 1px solid #d0d0d0;
     width: 100%;
@@ -116,16 +117,24 @@ select {
     -moz-appearance: textfield;
 }
 
-/* Amount input */
+/* Amount input — shortened */
 .amount-input {
     margin-top: 5px;
-    padding: 7px;
+    padding: 6px;
     font-size: 13px;
     border-radius: 6px;
     border: 1px solid #d0d0d0;
+    width: 100%;
 }
 
-/* Reverse button */
+/* Reverse button centered vertically */
+.reverse-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+}
+
 .reverse-btn {
     padding: 2px;
     border-radius: 50%;
@@ -136,22 +145,19 @@ select {
     cursor: pointer;
     height: 18px;
     width: 18px;
-    margin-top: 22px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .reverse-btn:hover {
     background: #27ae60;
 }
 
-/* Result text */
+/* Result text centered under second column */
 .result-text {
     font-size: 20px;
     font-weight: bold;
     padding: 6px 0;
     margin-top: 5px;
+    text-align: center;
 }
 
 /* RATES */
