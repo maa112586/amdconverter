@@ -1,170 +1,88 @@
-body {
-    font-family: Arial, sans-serif;
-    background: #f5f5f5;
-    padding: 20px;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Converter</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-.container {
-    width: 240px;
-    margin: auto;
-    background: white;
-    padding: 12px;
-    border-radius: 10px;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.1);
-}
+<div class="container">
 
-/* Spacing for bank dropdown */
-.top-spacing {
-    margin-top: 6px;
-}
+    <!-- BANK DROPDOWN -->
+    <div class="bank-dropdown top-spacing">
+        <div id="bankSelected" class="bank-selected">
+            <img id="bankSelectedLogo" class="bank-logo-small" src="icons/acba.png">
+            <span id="bankSelectedName">Acba Bank</span>
+        </div>
 
-/* BANK DROPDOWN */
-.bank-dropdown {
-    position: relative;
-    margin-bottom: 8px;
-}
+        <div id="bankList" class="bank-list hidden">
+            <div class="bank-item" data-bank="Acba Bank">
+                <img src="icons/acba.png" class="bank-logo-small"> Acba Bank
+            </div>
+            <div class="bank-item" data-bank="Ameriabank">
+                <img src="icons/ameria.png" class="bank-logo-small"> Ameriabank
+            </div>
+            <div class="bank-item" data-bank="IDBank">
+                <img src="icons/idbank.png" class="bank-logo-small"> IDBank
+            </div>
+            <div class="bank-item" data-bank="Fast Bank">
+                <img src="icons/fastbank.png" class="bank-logo-small"> Fast Bank
+            </div>
+            <div class="bank-item" data-bank="Inecobank">
+                <img src="icons/ineco.png" class="bank-logo-small"> Inecobank
+            </div>
+            <div class="bank-item" data-bank="Evocabank">
+                <img src="icons/evoca.png" class="bank-logo-small"> Evocabank
+            </div>
+        </div>
+    </div>
 
-.bank-selected {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 7px;
-    border: 1px solid #d0d0d0;
-    border-radius: 6px;
-    cursor: pointer;
-    background: #fff;
-    font-size: 12px;
-}
+    <!-- CURRENCY PAIR -->
+    <div class="currency-pair">
 
-.bank-logo-small {
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    object-fit: cover;
-}
+        <!-- LEFT COLUMN -->
+        <div class="currency-box">
+            <div class="currency-select">
+                <img id="flagFrom" class="flag-icon" src="icons/usa.png">
+                <select id="currencyFrom">
+                    <option value="USD" data-flag="icons/usa.png">USD</option>
+                    <option value="EUR" data-flag="icons/euro.png">EUR</option>
+                    <option value="AMD" data-flag="icons/am.png">AMD</option>
+                </select>
+            </div>
 
-.bank-list {
-    position: absolute;
-    top: 36px;
-    left: 0;
-    right: 0;
-    background: #fff;
-    border: 1px solid #d0d0d0;
-    border-radius: 6px;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.1);
-    z-index: 10;
-}
+            <input type="number" id="amountFrom" placeholder="0.00" class="no-spin amount-input">
+        </div>
 
-.bank-item {
-    padding: 7px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    cursor: pointer;
-    font-size: 12px;
-}
+        <!-- REVERSE BUTTON (NEW STRUCTURE) -->
+        <div class="reverse-wrapper">
+            <div class="reverse-align">
+                <button id="reverseBtn" class="reverse-btn">⇄</button>
+            </div>
+        </div>
 
-.bank-item:hover {
-    background: #f0f0f0;
-}
+        <!-- RIGHT COLUMN -->
+        <div class="currency-box">
+            <div class="currency-select">
+                <img id="flagTo" class="flag-icon" src="icons/am.png">
+                <select id="currencyTo">
+                    <option value="AMD" data-flag="icons/am.png">AMD</option>
+                    <option value="USD" data-flag="icons/usa.png">USD</option>
+                    <option value="EUR" data-flag="icons/euro.png">EUR</option>
+                </select>
+            </div>
 
-.hidden {
-    display: none;
-}
+            <div id="amountTo" class="result-text">0.00</div>
+        </div>
 
-/* CURRENCY PAIR */
-.currency-pair {
-    display: flex;
-    gap: 4px;
-    margin-top: 8px;
-    align-items: center; /* ← THIS FIXES THE VERTICAL ALIGNMENT */
-}
+    </div>
 
-.currency-box {
-    flex: 1;
-    min-width: 0;
-}
+    <!-- RATES -->
+    <div id="rates" class="rates-display"></div>
 
-/* Narrower currency selector */
-.currency-select {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-}
+</div>
 
-.flag-icon {
-    width: 16px;
-    height: 16px;
-    border-radius: 4px;
-    object-fit: cover;
-}
-
-select {
-    padding: 4px;
-    font-size: 11px;
-    border-radius: 6px;
-    border: 1px solid #d0d0d0;
-    width: 100%;
-}
-
-/* Remove number input arrows */
-.no-spin::-webkit-inner-spin-button,
-.no-spin::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-.no-spin {
-    -moz-appearance: textfield;
-}
-
-/* Amount input — shortened */
-.amount-input {
-    margin-top: 5px;
-    padding: 6px;
-    font-size: 13px;
-    border-radius: 6px;
-    border: 1px solid #d0d0d0;
-    width: 90%;
-}
-
-/* Reverse button centered vertically */
-.reverse-wrapper {
-    display: flex;
-    align-items: center;   /* ← FIX */
-    justify-content: center;
-    width: 22px;
-}
-
-.reverse-btn {
-    padding: 2px;
-    border-radius: 50%;
-    border: none;
-    background: #2ecc71;
-    color: white;
-    font-size: 10px;
-    cursor: pointer;
-    height: 18px;
-    width: 18px;
-}
-
-.reverse-btn:hover {
-    background: #27ae60;
-}
-
-/* Result text — smaller + aligned higher */
-.result-text {
-    font-size: 16px;
-    font-weight: bold;
-    padding: 2px 0;
-    margin-top: 3px;
-    text-align: center;
-}
-
-/* RATES */
-.rates-display {
-    margin-top: 8px;
-    text-align: center;
-    font-size: 10px;
-    font-weight: normal;
-    color: #666;
-}
+<script src="script.js"></script>
+</body>
+</html>
