@@ -1,22 +1,26 @@
 // ===============================
-// FETCH LIVE BANK RATES (ACBA ONLY)
+// FETCH LIVE ACBA RATES BY SCRAPING HTML
 // ===============================
 
 async function fetchBankRates() {
     try {
-        const response = await fetch("https://acba.am/api/exchange-rates");
-        const data = await response.json();
+        const response = await fetch("https://acba.am");
+        const html = await response.text();
+
+        // Extract USD buy/sell
+        const usdMatch = html.match(/USD\s+(\d+\.?\d*)\s+(\d+\.?\d*)/);
+        const usdBuy = usdMatch ? parseFloat(usdMatch[1]) : null;
+        const usdSell = usdMatch ? parseFloat(usdMatch[2]) : null;
+
+        // Extract EUR buy/sell
+        const eurMatch = html.match(/EUR\s+(\d+\.?\d*)\s+(\d+\.?\d*)/);
+        const eurBuy = eurMatch ? parseFloat(eurMatch[1]) : null;
+        const eurSell = eurMatch ? parseFloat(eurMatch[2]) : null;
 
         return {
             "Acba Bank": {
-                USD: {
-                    buy: data.rates.USD.buy,
-                    sell: data.rates.USD.sell
-                },
-                EUR: {
-                    buy: data.rates.EUR.buy,
-                    sell: data.rates.EUR.sell
-                },
+                USD: { buy: usdBuy, sell: usdSell },
+                EUR: { buy: eurBuy, sell: eurSell },
                 AMD: { buy: 1, sell: 1 }
             }
         };
@@ -28,7 +32,7 @@ async function fetchBankRates() {
 }
 
 // ===============================
-// BANK DROPDOWN (VISUALLY SAME, FUNCTIONALLY LOCKED TO ACBA)
+// BANK DROPDOWN (VISUALLY SAME, FUNCTIONALLY DISABLED)
 // ===============================
 
 const bankSelected = document.getElementById("bankSelected");
@@ -40,15 +44,11 @@ const bankSelectedLogo = document.getElementById("bankSelectedLogo");
 bankSelectedName.textContent = "Acba Bank";
 
 // Disable dropdown opening
-bankSelected.onclick = () => {
-    // Do nothing — dropdown stays visually present but non-interactive
-};
+bankSelected.onclick = () => {};
 
 // Disable clicking other banks
 document.querySelectorAll(".bank-item").forEach(item => {
-    item.onclick = () => {
-        // Do nothing — prevents switching away from Acba
-    };
+    item.onclick = () => {};
 });
 
 // ===============================
@@ -106,7 +106,7 @@ async function updateConversion() {
         return;
     }
 
-    const bank = "Acba Bank"; // Hard‑locked
+    const bank = "Acba Bank"; // locked
     const from = currencyFrom.value;
     const to = currencyTo.value;
 
