@@ -21,6 +21,9 @@ const currencyTo = document.getElementById("currencyTo");
 const amountFrom = document.getElementById("amountFrom");
 const amountTo = document.getElementById("amountTo");
 
+const flagFrom = document.getElementById("flagFrom");
+const flagTo = document.getElementById("flagTo");
+
 const ratesDiv = document.getElementById("rates");
 
 const bankSelected = document.getElementById("bankSelected");
@@ -28,6 +31,13 @@ const bankSelectedLogo = document.getElementById("bankSelectedLogo");
 const bankSelectedName = document.getElementById("bankSelectedName");
 const bankList = document.getElementById("bankList");
 const bankItems = document.querySelectorAll(".bank-item");
+
+const reverseBtn = document.getElementById("reverseBtn");
+
+function updateFlags() {
+    flagFrom.src = currencyFrom.selectedOptions[0].dataset.flag;
+    flagTo.src = currencyTo.selectedOptions[0].dataset.flag;
+}
 
 function updateRates() {
     const bank = bankSelectedName.textContent;
@@ -43,7 +53,7 @@ function convertCurrencyPair() {
     const amount = parseFloat(amountFrom.value);
 
     if (isNaN(amount)) {
-        amountTo.value = "";
+        amountTo.textContent = "0.00";
         return;
     }
 
@@ -65,7 +75,7 @@ function convertCurrencyPair() {
         result = amd / r[to].sell;
     }
 
-    amountTo.value = result.toFixed(2);
+    amountTo.textContent = result.toFixed(2);
 }
 
 bankSelected.onclick = () => {
@@ -86,9 +96,27 @@ bankItems.forEach(item => {
     };
 });
 
-currencyFrom.onchange = convertCurrencyPair;
-currencyTo.onchange = convertCurrencyPair;
+currencyFrom.onchange = () => {
+    updateFlags();
+    convertCurrencyPair();
+};
+
+currencyTo.onchange = () => {
+    updateFlags();
+    convertCurrencyPair();
+};
+
 amountFrom.oninput = convertCurrencyPair;
 
+reverseBtn.onclick = () => {
+    const temp = currencyFrom.value;
+    currencyFrom.value = currencyTo.value;
+    currencyTo.value = temp;
+
+    updateFlags();
+    convertCurrencyPair();
+};
+
+updateFlags();
 updateRates();
 convertCurrencyPair();
