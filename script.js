@@ -1,4 +1,4 @@
-const flagRow = document.getElementById("flagRow");
+// ---------------- FLAGS ----------------
 
 function updateFlags() {
     const currency = currencySelect.value;
@@ -9,6 +9,8 @@ function updateFlags() {
     }
 }
 
+// ---------------- BANK LOGOS (your exact filenames) ----------------
+
 const bankLogos = {
     "Acba Bank": "icons/acba.png",
     "Ameriabank": "icons/ameria.png",
@@ -17,6 +19,8 @@ const bankLogos = {
     "Inecobank": "icons/ineco.png",
     "Evocabank": "icons/evoca.png"
 };
+
+// ---------------- RATES ----------------
 
 const rates = {
     "Acba Bank": { USD: { buy: 385, sell: 392 }, EUR: { buy: 415, sell: 422 } },
@@ -27,101 +31,35 @@ const rates = {
     "Evocabank": { USD: { buy: 382, sell: 389 }, EUR: { buy: 412, sell: 419 } }
 };
 
-const bankInitials = {
-    "Acba Bank": "AC",
-    "Ameriabank": "AM",
-    "IDBank": "ID",
-    "Fast Bank": "FA",
-    "Inecobank": "IN",
-    "Evocabank": "EV"
-};
+// ---------------- GLOBAL STATE ----------------
 
 let direction = "toAMD";
 
-const bankSelect = document.getElementById("bankSelect");
+// ---------------- ELEMENTS ----------------
+
 const currencySelect = document.getElementById("currencySelect");
 const amountInput = document.getElementById("amountInput");
 const resultOutput = document.getElementById("resultOutput");
 const ratesDiv = document.getElementById("rates");
-const bankLogo = document.getElementById("bankLogo");
+
 const toAMDBtn = document.getElementById("toAMD");
 const fromAMDBtn = document.getElementById("fromAMD");
 
-function updateLogo() {
-    const bank = bankSelect.value;
-    bankLogo.textContent = bankInitials[bank] || "?";
-}
+const bankSelected = document.getElementById("bankSelected");
+const bankSelectedLogo = document.getElementById("bankSelectedLogo");
+const bankSelectedName = document.getElementById("bankSelectedName");
+const bankList = document.getElementById("bankList");
+const bankItems = document.querySelectorAll(".bank-item");
+
+// ---------------- UPDATE RATES ----------------
 
 function updateRates() {
-    const bank = bankSelect.value;
+    const bank = bankSelectedName.textContent;
     const currency = currencySelect.value;
     const r = rates[bank][currency];
     ratesDiv.innerHTML = `Buy: ${r.buy} | Sell: ${r.sell}`;
 }
 
-function convert() {
-    const bank = bankSelect.value;
-    const currency = currencySelect.value;
-    const amount = parseFloat(amountInput.value);
-    if (isNaN(amount)) {
-        resultOutput.value = "";
-        return;
-    }
+// ---------------- CONVERSION ----------------
 
-    const r = rates[bank][currency];
-
-    let result;
-    if (direction === "toAMD") {
-        // Foreign → AMD uses Buy rate
-        result = amount * r.buy;
-    } else {
-        // AMD → Foreign uses Sell rate
-        result = amount / r.sell;
-    }
-
-    resultOutput.value = result.toFixed(2);
-}
-
-toAMDBtn.onclick = () => {
-    direction = "toAMD";
-    toAMDBtn.classList.add("active");
-    fromAMDBtn.classList.remove("active");
-    convert();
-};
-
-fromAMDBtn.onclick = () => {
-    direction = "fromAMD";
-    fromAMDBtn.classList.add("active");
-    toAMDBtn.classList.remove("active");
-    convert();
-};
-
-bankSelect.onchange = () => {
-    function updateLogo() {
-    const bank = bankSelect.value;
-    const logoPath = bankLogos[bank];
-    if (logoPath) {
-        bankLogo.src = logoPath;
-    }
-}
-;
-    updateRates();
-    convert();
-};
-
-currencySelect.onchange = () => {
-    updateRates();
-    convert();
-};
-
-amountInput.oninput = convert;
-
-function updateLogo() {
-    const bank = bankSelect.value;
-    const logoPath = bankLogos[bank];
-    if (logoPath) {
-        bankLogo.src = logoPath;
-    }
-}
-updateFlags();
-updateRates();
+function convert
