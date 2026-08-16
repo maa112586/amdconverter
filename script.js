@@ -34,6 +34,10 @@ const bankItems = document.querySelectorAll(".bank-item");
 
 const reverseBtn = document.getElementById("reverseBtn");
 
+function formatNumber(num) {
+    return num.toLocaleString("en-US");
+}
+
 function updateFlags() {
     flagFrom.src = currencyFrom.selectedOptions[0].dataset.flag;
     flagTo.src = currencyTo.selectedOptions[0].dataset.flag;
@@ -44,9 +48,7 @@ function updateRates() {
     const r = rates[bank];
 
     const from = currencyFrom.value;
-    const to = currencyTo.value;
 
-    // Only show relevant info
     ratesDiv.innerHTML = `${from}: Buy ${r[from].buy} / Sell ${r[from].sell}`;
 }
 
@@ -80,7 +82,7 @@ function convertCurrencyPair() {
         result = amd / r[to].sell;
     }
 
-    amountTo.textContent = result.toFixed(2);
+    amountTo.textContent = formatNumber(result.toFixed(2));
 }
 
 bankSelected.onclick = () => {
