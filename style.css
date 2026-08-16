@@ -5,32 +5,105 @@ body {
 }
 
 .container {
-    width: 360px;
+    width: 330px;
     margin: auto;
     background: white;
-    padding: 20px;
-    border-radius: 12px;
+    padding: 15px;
+    border-radius: 10px;
     box-shadow: 0 4px 14px rgba(0,0,0,0.1);
 }
 
-h2 {
-    text-align: center;
-    margin-bottom: 20px;
+/* SMALL LABELS */
+.small-label {
+    font-size: 12px;
+    font-weight: normal;
+    margin-bottom: 4px;
 }
 
-label {
-    display: block;
-    margin-top: 15px;
-    margin-bottom: 5px;
-    font-weight: bold;
+/* BANK DROPDOWN */
+.bank-dropdown {
+    position: relative;
+    margin-bottom: 10px;
 }
 
-input, select {
-    width: 100%;
-    padding: 10px;
+.bank-selected {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px;
     border: 1px solid #d0d0d0;
-    border-radius: 8px;
-    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    background: #fff;
+    font-size: 13px;
+}
+
+.bank-logo-small {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.bank-list {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border: 1px solid #d0d0d0;
+    border-radius: 6px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+    z-index: 10;
+}
+
+.bank-item {
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.bank-item:hover {
+    background: #f0f0f0;
+}
+
+.hidden {
+    display: none;
+}
+
+/* CURRENCY PAIR */
+.currency-pair {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+    align-items: center;
+}
+
+.currency-box {
+    flex: 1;
+}
+
+.currency-select {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.flag-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    object-fit: cover;
+}
+
+select {
+    padding: 6px;
+    font-size: 13px;
+    border-radius: 6px;
+    border: 1px solid #d0d0d0;
 }
 
 /* Remove number input arrows */
@@ -43,116 +116,48 @@ input, select {
     -moz-appearance: textfield;
 }
 
-/* BANK DROPDOWN */
-
-.bank-dropdown {
-    position: relative;
-}
-
-.bank-selected {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px;
-    border: 1px solid #d0d0d0;
-    border-radius: 8px;
-    cursor: pointer;
-    background: #fff;
-}
-
-.bank-logo-small {
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-.bank-list {
-    position: absolute;
-    top: 55px;
-    left: 0;
-    right: 0;
-    background: #fff;
-    border: 1px solid #d0d0d0;
-    border-radius: 8px;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.1);
-    z-index: 10;
-}
-
-.bank-item {
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    cursor: pointer;
-}
-
-.bank-item:hover {
-    background: #f0f0f0;
-}
-
-.hidden {
-    display: none;
-}
-
-/* CURRENCY PAIR */
-
-.currency-pair {
-    display: flex;
-    gap: 10px;
-    margin-top: 20px;
-    align-items: center;
-}
-
-.currency-box {
-    flex: 1;
-}
-
-.currency-select {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.flag-icon {
-    width: 26px;
-    height: 26px;
-    border-radius: 4px;
-    object-fit: cover;
+/* Amount input */
+.amount-input {
+    margin-top: 6px;
+    padding: 8px;
+    font-size: 14px;
+    border-radius: 6px;
 }
 
 /* Reverse button */
-
 .reverse-btn {
-    padding: 10px 12px;
-    border-radius: 8px;
+    padding: 6px 8px;
+    border-radius: 50%;
     border: none;
-    background: #007bff;
+    background: #2ecc71;
     color: white;
-    font-size: 20px;
+    font-size: 16px;
     cursor: pointer;
-    height: 42px;
-    margin-top: 22px;
+    height: 32px;
+    width: 32px;
+    margin-top: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .reverse-btn:hover {
-    background: #005fcc;
+    background: #27ae60;
 }
 
 /* Result text */
-
 .result-text {
-    font-size: 20px;
-    font-weight: normal;
-    padding: 10px 0;
+    font-size: 22px;
+    font-weight: bold;
+    padding: 8px 0;
+    margin-top: 6px;
 }
 
 /* RATES */
-
 .rates-display {
-    margin-top: 15px;
+    margin-top: 10px;
     text-align: center;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: normal;
-    color: #555;
+    color: #666;
 }
