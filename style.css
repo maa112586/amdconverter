@@ -7,7 +7,7 @@ body {
 }
 
 .container {
-    width: 250px; /* FIX: narrower widget */
+    width: 250px; /* narrower widget */
     margin: 40px auto;
     background: white;
     padding: 20px;
@@ -76,7 +76,7 @@ body {
     flex-direction: column;
     justify-content: space-between;
     height: 70px;
-    width: 90px; /* FIX: narrower boxes */
+    width: 90px;
 }
 
 .currency-select {
@@ -124,15 +124,16 @@ body {
     width: 18px;
 }
 
-/* RESULT TEXT — CENTERED UNDER SECOND CURRENCY */
+/* RESULT TEXT — FIXED VERTICAL ALIGNMENT */
 .result-text {
     margin-top: 6px;
+    padding: 6px; /* FIX: matches input box padding */
     font-size: 18px;
     font-weight: bold;
-    text-align: center; /* FIX: centered horizontally */
+    text-align: center;
 }
 
-/* RATES DISPLAY — REMOVED BUY/SELL LOOK */
+/* RATES DISPLAY — plain text */
 .rates-display {
     margin-top: 10px;
     font-size: 12px;
