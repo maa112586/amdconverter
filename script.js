@@ -91,7 +91,7 @@ currencyTo.addEventListener("change", () => {
 
 
 // ------------------------------
-// REVERSE BUTTON — ORIGINAL WORKING VERSION
+// REVERSE BUTTON
 // ------------------------------
 reverseBtn.addEventListener("click", () => {
     const tempCurrency = currencyFrom.value;
@@ -107,19 +107,10 @@ reverseBtn.addEventListener("click", () => {
 
 
 // ------------------------------
-// UPDATE RATES DISPLAY
+// REMOVE BUY/SELL COMPLETELY
 // ------------------------------
 function updateRates() {
-    const bank = bankSelectedName.textContent;
-    const from = currencyFrom.value;
-
-    const bankRates = rates[bank][from];
-
-    if (bankRates.buy === "-") {
-        ratesDiv.textContent = `${from}: No rate available`;
-    } else {
-        ratesDiv.textContent = `${from}: Buy ${bankRates.buy} / Sell ${bankRates.sell}`;
-    }
+    ratesDiv.textContent = ""; // FIX: no buy/sell text at all
 }
 
 
@@ -144,21 +135,18 @@ function convert() {
         return;
     }
 
-    // USD → AMD or EUR → AMD
     if (to === "AMD") {
         const sellRate = bankRates[from].sell;
         amountTo.textContent = (amount * sellRate).toFixed(2);
         return;
     }
 
-    // AMD → USD or AMD → EUR
     if (from === "AMD") {
         const buyRate = bankRates[to].buy;
         amountTo.textContent = (amount / buyRate).toFixed(2);
         return;
     }
 
-    // USD ↔ EUR cross conversion
     const sellRateFrom = bankRates[from].sell;
     const buyRateTo = bankRates[to].buy;
 
