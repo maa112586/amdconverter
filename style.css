@@ -77,7 +77,7 @@ body {
     display: flex;
     gap: 4px;
     margin-top: 8px;
-    align-items: flex-start;
+    align-items: center;
 }
 
 .currency-box {
@@ -124,7 +124,7 @@ select {
     font-size: 13px;
     border-radius: 6px;
     border: 1px solid #d0d0d0;
-    width: 100%;
+    width: 90%;
 }
 
 /* Reverse button centered vertically */
@@ -151,12 +151,12 @@ select {
     background: #27ae60;
 }
 
-/* Result text centered under second column */
+/* Result text — smaller + aligned higher */
 .result-text {
-    font-size: 20px;
+    font-size: 16px;
     font-weight: bold;
-    padding: 6px 0;
-    margin-top: 5px;
+    padding: 2px 0;
+    margin-top: 3px;
     text-align: center;
 }
 
