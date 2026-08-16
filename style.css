@@ -5,7 +5,7 @@ body {
 }
 
 .container {
-    width: 300px;
+    width: 280px;
     margin: auto;
     background: white;
     padding: 12px;
@@ -84,6 +84,7 @@ body {
 
 .currency-box {
     flex: 1;
+    min-width: 0;
 }
 
 .currency-select {
@@ -128,16 +129,16 @@ select {
 
 /* Reverse button */
 .reverse-btn {
-    padding: 4px;
+    padding: 3px;
     border-radius: 50%;
     border: none;
     background: #2ecc71;
     color: white;
-    font-size: 12px;
+    font-size: 11px;
     cursor: pointer;
-    height: 22px;
-    width: 22px;
-    margin-top: 20px;
+    height: 20px;
+    width: 20px;
+    margin-top: 22px;
     display: flex;
     align-items: center;
     justify-content: center;
