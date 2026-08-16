@@ -2,68 +2,67 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AMD Converter</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="header">
-    <img class="bank-logo" id="bankLogo" src="icons/acba.png" alt="Bank logo">
+
+<div class="container">
+
     <h2>AMD Converter</h2>
-</div>
 
-<div id="flagRow"></div>
+    <!-- FLAGS -->
+    <div id="flagRow" class="flag-row"></div>
 
-<label>Bank:</label>
-<div class="bank-dropdown">
-    <div id="bankSelected" class="bank-selected">
-        <img id="bankSelectedLogo" class="bank-logo-small" src="icons/acba.png">
-        <span id="bankSelectedName">Acba Bank</span>
+    <!-- BANK DROPDOWN -->
+    <label>Bank:</label>
+    <div class="bank-dropdown">
+        <div id="bankSelected" class="bank-selected">
+            <img id="bankSelectedLogo" class="bank-logo-small" src="icons/acba.png">
+            <span id="bankSelectedName">Acba Bank</span>
+        </div>
+
+        <div id="bankList" class="bank-list hidden">
+            <div class="bank-item" data-bank="Acba Bank">
+                <img src="icons/acba.png" class="bank-logo-small"> Acba Bank
+            </div>
+            <div class="bank-item" data-bank="Ameriabank">
+                <img src="icons/ameria.png" class="bank-logo-small"> Ameriabank
+            </div>
+            <div class="bank-item" data-bank="IDBank">
+                <img src="icons/idbank.png" class="bank-logo-small"> IDBank
+            </div>
+            <div class="bank-item" data-bank="Fast Bank">
+                <img src="icons/fastbank.png" class="bank-logo-small"> Fast Bank
+            </div>
+            <div class="bank-item" data-bank="Inecobank">
+                <img src="icons/ineco.png" class="bank-logo-small"> Inecobank
+            </div>
+            <div class="bank-item" data-bank="Evocabank">
+                <img src="icons/evoca.png" class="bank-logo-small"> Evocabank
+            </div>
+        </div>
     </div>
 
-    <div id="bankList" class="bank-list hidden">
-        <div class="bank-item" data-bank="Acba Bank">
-            <img src="icons/acba.png" class="bank-logo-small"> Acba Bank
-        </div>
-        <div class="bank-item" data-bank="Ameriabank">
-            <img src="icons/ameria.png" class="bank-logo-small"> Ameriabank
-        </div>
-        <div class="bank-item" data-bank="IDBank">
-            <img src="icons/idbank.png" class="bank-logo-small"> IDBank
-        </div>
-        <div class="bank-item" data-bank="Fast Bank">
-            <img src="icons/fastbank.png" class="bank-logo-small"> Fast Bank
-        </div>
-        <div class="bank-item" data-bank="Inecobank">
-            <img src="icons/ineco.png" class="bank-logo-small"> Inecobank
-        </div>
-        <div class="bank-item" data-bank="Evocabank">
-            <img src="icons/evoca.png" class="bank-logo-small"> Evocabank
-        </div>
-    </div>
-</div>
+    <!-- CURRENCY -->
+    <label>Currency:</label>
+    <select id="currencySelect">
+        <option value="USD">USD</option>
+        <option value="EUR">EUR</option>
+    </select>
 
-
-<label>Currency:</label>
-<select id="currencySelect">
-    <option value="USD"><img src="icons/usa.png"> USD ↔ AMD</option>
-    <option value="EUR"><img src="icons/euro.png"> EUR ↔ AMD</option>
-</select>
-
-        <div class="toggle">
-            <button id="toAMD" class="active">Foreign → AMD (Buy)</button>
-            <button id="fromAMD">AMD → Foreign (Sell)</button>
-        </div>
-
-        <label>Amount:</label>
-        <input type="number" id="amountInput" placeholder="Enter amount">
-
-        <label>Result:</label>
-        <input type="text" id="resultOutput" readonly>
-
-        <div id="rates"></div>
+    <!-- DIRECTION BUTTONS -->
+    <div class="direction-buttons">
+        <button id="toAMD" class="active">To AMD</button>
+        <button id="fromAMD">From AMD</button>
     </div>
 
-    <script src="script.js"></script>
-</body>
-</html>
+    <!-- AMOUNT -->
+    <label>Amount:</label>
+    <input type="number" id="amountInput" placeholder="Enter amount">
+
+    <!-- RESULT -->
+    <label>Result:</label>
+    <input type="text" id="resultOutput" readonly>
+
+    <!-- RATES -->
