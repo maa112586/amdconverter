@@ -15,6 +15,9 @@ async function fetchDailyRates() {
             rates[item.ISO] = item.Rate;
         });
 
+        // FIX: AMD is the base currency, so define it manually
+        rates["AMD"] = 1;
+
         return rates;
     } catch (err) {
         console.error("Rate fetch failed:", err);
@@ -44,7 +47,7 @@ document.querySelectorAll(".bank-item").forEach(item => {
         bankSelectedLogo.src = logo;
 
         bankList.classList.add("hidden");
-        updateConversion(); // recalc after bank change
+        updateConversion();
     };
 });
 
