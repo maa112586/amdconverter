@@ -1,90 +1,131 @@
 // ===============================
-//  DAILY EXCHANGE RATE FETCHER
+// CENTRAL BANK DAILY RATES
 // ===============================
 
 async function fetchDailyRates() {
-  const today = new Date().toISOString().split('T')[0];
-  const url = `https://api.cba.am/exchangeRates?date=${today}`;
+    const today = new Date().toISOString().split("T")[0];
+    const url = `https://api.cba.am/exchangeRates?date=${today}`;
 
-  try {
-    const response = await fetch(url);
-    const data = await response.json();
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
 
-    const rates = {};
-    data.forEach(item => {
-      rates[item.ISO] = item.Rate;
-    });
+        const rates = {};
+        data.forEach(item => {
+            rates[item.ISO] = item.Rate;
+        });
 
-    return rates;
-  } catch (error) {
-    console.error("Failed to fetch daily rates:", error);
-    return null;
-  }
+        return rates;
+    } catch (err) {
+        console.error("Rate fetch failed:", err);
+        return null;
+    }
 }
 
 // ===============================
-//  CONVERSION LOGIC
+// BANK DROPDOWN
 // ===============================
 
-async function convertCurrency(amount, fromCurrency, toCurrency) {
-  const rates = await fetchDailyRates();
-  if (!rates) return null;
+const bankSelected = document.getElementById("bankSelected");
+const bankList = document.getElementById("bankList");
+const bankSelectedName = document.getElementById("bankSelectedName");
+const bankSelectedLogo = document.getElementById("bankSelectedLogo");
 
-  const fromRate = rates[fromCurrency];
-  const toRate = rates[toCurrency];
+bankSelected.onclick = () => {
+    bankList.classList.toggle("hidden");
+};
 
-  if (!fromRate || !toRate) {
-    console.error("Invalid currency code:", fromCurrency, toCurrency);
-    return null;
-  }
+document.querySelectorAll(".bank-item").forEach(item => {
+    item.onclick = () => {
+        const bank = item.dataset.bank;
+        const logo = item.querySelector("img").src;
 
-  // Convert: amount → AMD → target currency
-  const amdValue = amount * fromRate;
-  const result = amdValue / toRate;
+        bankSelectedName.textContent = bank;
+        bankSelectedLogo.src = logo;
 
-  return result;
-}
-
-// ===============================
-//  UI HANDLING
-// ===============================
-
-document.addEventListener("DOMContentLoaded", () => {
-  const amountInput = document.getElementById("amount");
-  const fromSelect = document.getElementById("fromCurrency");
-  const toSelect = document.getElementById("toCurrency");
-  const resultBox = document.getElementById("result");
-  const updateBox = document.getElementById("updateTime");
-
-  async function updateConversion() {
-    const amount = parseFloat(amountInput.value);
-    const from = fromSelect.value;
-    const to = toSelect.value;
-
-    if (isNaN(amount)) {
-      resultBox.textContent = "Enter a valid number.";
-      return;
-    }
-
-    const result = await convertCurrency(amount, from, to);
-
-    if (result === null) {
-      resultBox.textContent = "Unable to fetch rates.";
-      return;
-    }
-
-    resultBox.textContent = `${result.toFixed(2)} ${to}`;
-  }
-
-  // Update when user interacts
-  amountInput.addEventListener("input", updateConversion);
-  fromSelect.addEventListener("change", updateConversion);
-  toSelect.addEventListener("change", updateConversion);
-
-  // Show last update time
-  const now = new Date();
-  updateBox.textContent = `Updated: ${now.toLocaleString()}`;
-
-  // Initial conversion
-  updateConversion();
+        bankList.classList.add("hidden");
+        updateConversion(); // recalc after bank change
+    };
 });
+
+// ===============================
+// FLAGS + DROPDOWNS
+// ===============================
+
+const currencyFrom = document.getElementById("currencyFrom");
+const currencyTo = document.getElementById("currencyTo");
+const flagFrom = document.getElementById("flagFrom");
+const flagTo = document.getElementById("flagTo");
+
+currencyFrom.onchange = () => {
+    flagFrom.src = currencyFrom.selectedOptions[0].dataset.flag;
+    updateConversion();
+};
+
+currencyTo.onchange = () => {
+    flagTo.src = currencyTo.selectedOptions[0].dataset.flag;
+    updateConversion();
+};
+
+// ===============================
+// REVERSE BUTTON
+// ===============================
+
+document.getElementById("reverseBtn").onclick = () => {
+    const tempCurrency = currencyFrom.value;
+    currencyFrom.value = currencyTo.value;
+    currencyTo.value = tempCurrency;
+
+    const tempFlag = flagFrom.src;
+    flagFrom.src = flagTo.src;
+    flagTo.src = tempFlag;
+
+    updateConversion();
+};
+
+// ===============================
+// CONVERSION LOGIC
+// ===============================
+
+const amountFrom = document.getElementById("amountFrom");
+const amountTo = document.getElementById("amountTo");
+
+async function updateConversion() {
+    const amount = parseFloat(amountFrom.value);
+    if (isNaN(amount)) {
+        amountTo.textContent = "0.00";
+        return;
+    }
+
+    const rates = await fetchDailyRates();
+    if (!rates) {
+        amountTo.textContent = "Error";
+        return;
+    }
+
+    const from = currencyFrom.value;
+    const to = currencyTo.value;
+
+    const fromRate = rates[from];
+    const toRate = rates[to];
+
+    if (!fromRate || !toRate) {
+        amountTo.textContent = "0.00";
+        return;
+    }
+
+    // Convert: FROM → AMD → TO
+    const amdValue = amount * fromRate;
+    const result = amdValue / toRate;
+
+    amountTo.textContent = result.toFixed(2);
+}
+
+// ===============================
+// INPUT LISTENER
+// ===============================
+
+amountFrom.oninput = updateConversion;
+
+// Initial load
+updateConversion();
