@@ -1,12 +1,3 @@
-function updateFlags() {
-    const currency = currencySelect.value;
-    if (currency === "USD") {
-        flagRow.textContent = "USD ↔ AMD";
-    } else {
-        flagRow.textContent = "EUR ↔ AMD";
-    }
-}
-
 const bankLogos = {
     "Acba Bank": "icons/acba.png",
     "Ameriabank": "icons/ameria.png",
@@ -25,16 +16,12 @@ const rates = {
     "Evocabank": { USD: { buy: 382, sell: 389 }, EUR: { buy: 412, sell: 419 } }
 };
 
-let direction = "toAMD";
+const currencyFrom = document.getElementById("currencyFrom");
+const currencyTo = document.getElementById("currencyTo");
+const amountFrom = document.getElementById("amountFrom");
+const amountTo = document.getElementById("amountTo");
 
-const currencySelect = document.getElementById("currencySelect");
-const amountInput = document.getElementById("amountInput");
-const resultOutput = document.getElementById("resultOutput");
 const ratesDiv = document.getElementById("rates");
-const flagRow = document.getElementById("flagRow");
-
-const toAMDBtn = document.getElementById("toAMD");
-const fromAMDBtn = document.getElementById("fromAMD");
 
 const bankSelected = document.getElementById("bankSelected");
 const bankSelectedLogo = document.getElementById("bankSelectedLogo");
@@ -44,46 +31,42 @@ const bankItems = document.querySelectorAll(".bank-item");
 
 function updateRates() {
     const bank = bankSelectedName.textContent;
-    const currency = currencySelect.value;
-    const r = rates[bank][currency];
-    ratesDiv.innerHTML = `Buy: ${r.buy} | Sell: ${r.sell}`;
+    const r = rates[bank];
+    ratesDiv.innerHTML = `USD: Buy ${r.USD.buy} / Sell ${r.USD.sell} | EUR: Buy ${r.EUR.buy} / Sell ${r.EUR.sell}`;
 }
 
-function convert() {
+function convertCurrencyPair() {
     const bank = bankSelectedName.textContent;
-    const currency = currencySelect.value;
-    const amount = parseFloat(amountInput.value);
+
+    const from = currencyFrom.value;
+    const to = currencyTo.value;
+    const amount = parseFloat(amountFrom.value);
 
     if (isNaN(amount)) {
-        resultOutput.value = "";
+        amountTo.value = "";
         return;
     }
 
-    const r = rates[bank][currency];
+    const r = rates[bank];
 
     let result;
-    if (direction === "toAMD") {
-        result = amount * r.buy;
-    } else {
-        result = amount / r.sell;
+
+    if (from === to) {
+        result = amount;
+    }
+    else if (to === "AMD") {
+        result = amount * r[from].buy;
+    }
+    else if (from === "AMD") {
+        result = amount / r[to].sell;
+    }
+    else {
+        const amd = amount * r[from].buy;
+        result = amd / r[to].sell;
     }
 
-    resultOutput.value = result.toFixed(2);
+    amountTo.value = result.toFixed(2);
 }
-
-toAMDBtn.onclick = () => {
-    direction = "toAMD";
-    toAMDBtn.classList.add("active");
-    fromAMDBtn.classList.remove("active");
-    convert();
-};
-
-fromAMDBtn.onclick = () => {
-    direction = "fromAMD";
-    fromAMDBtn.classList.add("active");
-    toAMDBtn.classList.remove("active");
-    convert();
-};
 
 bankSelected.onclick = () => {
     bankList.classList.toggle("hidden");
@@ -99,18 +82,13 @@ bankItems.forEach(item => {
         bankList.classList.add("hidden");
 
         updateRates();
-        convert();
+        convertCurrencyPair();
     };
 });
 
-currencySelect.onchange = () => {
-    updateFlags();
-    updateRates();
-    convert();
-};
+currencyFrom.onchange = convertCurrencyPair;
+currencyTo.onchange = convertCurrencyPair;
+amountFrom.oninput = convertCurrencyPair;
 
-amountInput.oninput = convert;
-
-updateFlags();
 updateRates();
-convert();
+convertCurrencyPair();
