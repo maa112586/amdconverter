@@ -8,26 +8,26 @@
 </head>
 <body>
     <div class="card">
-        <div class="header">
-            <div class="bank-logo" id="bankLogo">AC</div>
-            <h2>AMD Converter</h2>
-        </div>
+      <div class="header">
+    <img class="bank-logo" id="bankLogo" src="icons/acba.png" alt="Bank logo">
+    <h2>AMD Converter</h2>
+</div>
 
-        <label>Bank:</label>
-        <select id="bankSelect">
-            <option>Acba Bank</option>
-            <option>Ameriabank</option>
-            <option>IDBank</option>
-            <option>Fast Bank</option>
-            <option>Inecobank</option>
-            <option>Evocabank</option>
-        </select>
+<label>Bank:</label>
+<select id="bankSelect">
+    <option value="Acba Bank">Acba Bank</option>
+    <option value="Ameriabank">Ameriabank</option>
+    <option value="IDBank">IDBank</option>
+    <option value="Fast Bank">Fast Bank</option>
+    <option value="Inecobank">Inecobank</option>
+    <option value="Evocabank">Evocabank</option>
+</select>
 
-        <label>Currency:</label>
-        <select id="currencySelect">
-            <option value="USD">🇺🇸 USD ↔ 🇦🇲 AMD</option>
-            <option value="EUR">🇪🇺 EUR ↔ 🇦🇲 AMD</option>
-        </select>
+<label>Currency:</label>
+<select id="currencySelect">
+    <option value="USD"><img src="icons/us.png"> USD ↔ AMD</option>
+    <option value="EUR"><img src="icons/eu.png"> 🇪🇺 EUR ↔ 🇦🇲 AMD</option>
+</select>
 
         <div class="toggle">
             <button id="toAMD" class="active">Foreign → AMD (Buy)</button>
