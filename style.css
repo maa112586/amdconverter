@@ -77,7 +77,7 @@ body {
     display: flex;
     gap: 4px;
     margin-top: 8px;
-    align-items: center;
+    align-items: center; /* ← THIS FIXES THE VERTICAL ALIGNMENT */
 }
 
 .currency-box {
@@ -130,7 +130,7 @@ select {
 /* Reverse button centered vertically */
 .reverse-wrapper {
     display: flex;
-    align-items: center;
+    align-items: center;   /* ← FIX */
     justify-content: center;
     width: 22px;
 }
