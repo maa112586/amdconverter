@@ -1,32 +1,32 @@
 // ===============================
-// FETCH LIVE ACBA RATES BY SCRAPING HTML
+// FETCH LIVE BANK RATES FROM RATE.AM (v3)
 // ===============================
 
 async function fetchBankRates() {
+    const url = "https://rate.am/ws/mobile/v3/rates";
+
     try {
-        const response = await fetch("https://acba.am");
-        const html = await response.text();
+        const response = await fetch(url);
+        const data = await response.json();
 
-        // Extract USD buy/sell
-        const usdMatch = html.match(/USD\s+(\d+\.?\d*)\s+(\d+\.?\d*)/);
-        const usdBuy = usdMatch ? parseFloat(usdMatch[1]) : null;
-        const usdSell = usdMatch ? parseFloat(usdMatch[2]) : null;
-
-        // Extract EUR buy/sell
-        const eurMatch = html.match(/EUR\s+(\d+\.?\d*)\s+(\d+\.?\d*)/);
-        const eurBuy = eurMatch ? parseFloat(eurMatch[1]) : null;
-        const eurSell = eurMatch ? parseFloat(eurMatch[2]) : null;
+        const acba = data.banks.find(b => b.name === "Acba Bank");
 
         return {
             "Acba Bank": {
-                USD: { buy: usdBuy, sell: usdSell },
-                EUR: { buy: eurBuy, sell: eurSell },
+                USD: {
+                    buy: acba.rates.USD.buy,
+                    sell: acba.rates.USD.sell
+                },
+                EUR: {
+                    buy: acba.rates.EUR.buy,
+                    sell: acba.rates.EUR.sell
+                },
                 AMD: { buy: 1, sell: 1 }
             }
         };
 
     } catch (err) {
-        console.error("Failed to fetch Acba rates:", err);
+        console.error("Failed to fetch bank rates:", err);
         return null;
     }
 }
