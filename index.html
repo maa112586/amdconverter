@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMD Converter</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="card">
+        <div class="header">
+            <div class="bank-logo" id="bankLogo">AC</div>
+            <h2>AMD Converter</h2>
+        </div>
+
+        <label>Bank:</label>
+        <select id="bankSelect">
+            <option>Acba Bank</option>
+            <option>Ameriabank</option>
+            <option>IDBank</option>
+            <option>Fast Bank</option>
+            <option>Inecobank</option>
+            <option>Evocabank</option>
+        </select>
+
+        <label>Currency:</label>
+        <select id="currencySelect">
+            <option value="USD">🇺🇸 USD ↔ 🇦🇲 AMD</option>
+            <option value="EUR">🇪🇺 EUR ↔ 🇦🇲 AMD</option>
+        </select>
+
+        <div class="toggle">
+            <button id="toAMD" class="active">Foreign → AMD (Buy)</button>
+            <button id="fromAMD">AMD → Foreign (Sell)</button>
+        </div>
+
+        <label>Amount:</label>
+        <input type="number" id="amountInput" placeholder="Enter amount">
+
+        <label>Result:</label>
+        <input type="text" id="resultOutput" readonly>
+
+        <div id="rates"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
