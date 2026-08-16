@@ -1,48 +1,42 @@
 // ===============================
-// FETCH LIVE BANK RATES FROM RATE.AM
+// FETCH LIVE BANK RATES (ACBA ONLY)
 // ===============================
 
 async function fetchBankRates() {
-    const url = "https://rate.am/ws/mobile/v2/rates";
-
     try {
-        const response = await fetch(url);
+        const response = await fetch("https://acba.am/api/exchange-rates");
         const data = await response.json();
 
-        const banks = [
-            "Acba Bank",
-            "Ameriabank",
-            "IDBank",
-            "Fast Bank",
-            "Inecobank",
-            "Evocabank"
-        ];
+        // Build the same structure your converter already expects
+        const bankRates = {
+            "Acba Bank": {
+                USD: {
+                    buy: data.rates.USD.buy,
+                    sell: data.rates.USD.sell
+                },
+                EUR: {
+                    buy: data.rates.EUR.buy,
+                    sell: data.rates.EUR.sell
+                },
+                AMD: {
+                    buy: 1,
+                    sell: 1
+                }
+            },
 
-        const bankRates = {};
-
-        data.banks.forEach(bank => {
-            if (banks.includes(bank.name)) {
-                bankRates[bank.name] = {
-                    USD: {
-                        buy: bank.rates.USD.buy,
-                        sell: bank.rates.USD.sell
-                    },
-                    EUR: {
-                        buy: bank.rates.EUR.buy,
-                        sell: bank.rates.EUR.sell
-                    },
-                    AMD: {
-                        buy: 1,
-                        sell: 1
-                    }
-                };
-            }
-        });
+            // Other banks remain present so your UI doesn't break,
+            // but they return null so your converter won't crash.
+            "Ameriabank": null,
+            "IDBank": null,
+            "Fast Bank": null,
+            "Inecobank": null,
+            "Evocabank": null
+        };
 
         return bankRates;
 
     } catch (err) {
-        console.error("Failed to fetch bank rates:", err);
+        console.error("Failed to fetch Acba rates:", err);
         return null;
     }
 }
