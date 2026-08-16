@@ -1,68 +1,123 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>AMD Converter</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f5f5;
+    padding: 20px;
+}
 
-<div class="container">
+.container {
+    width: 320px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+}
 
-    <h2>AMD Converter</h2>
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
 
-    <!-- FLAGS -->
-    <div id="flagRow" class="flag-row"></div>
+label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
 
-    <!-- BANK DROPDOWN -->
-    <label>Bank:</label>
-    <div class="bank-dropdown">
-        <div id="bankSelected" class="bank-selected">
-            <img id="bankSelectedLogo" class="bank-logo-small" src="icons/acba.png">
-            <span id="bankSelectedName">Acba Bank</span>
-        </div>
+input, select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 16px;
+}
 
-        <div id="bankList" class="bank-list hidden">
-            <div class="bank-item" data-bank="Acba Bank">
-                <img src="icons/acba.png" class="bank-logo-small"> Acba Bank
-            </div>
-            <div class="bank-item" data-bank="Ameriabank">
-                <img src="icons/ameria.png" class="bank-logo-small"> Ameriabank
-            </div>
-            <div class="bank-item" data-bank="IDBank">
-                <img src="icons/idbank.png" class="bank-logo-small"> IDBank
-            </div>
-            <div class="bank-item" data-bank="Fast Bank">
-                <img src="icons/fastbank.png" class="bank-logo-small"> Fast Bank
-            </div>
-            <div class="bank-item" data-bank="Inecobank">
-                <img src="icons/ineco.png" class="bank-logo-small"> Inecobank
-            </div>
-            <div class="bank-item" data-bank="Evocabank">
-                <img src="icons/evoca.png" class="bank-logo-small"> Evocabank
-            </div>
-        </div>
-    </div>
+.flag-row {
+    text-align: center;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
 
-    <!-- CURRENCY -->
-    <label>Currency:</label>
-    <select id="currencySelect">
-        <option value="USD">USD</option>
-        <option value="EUR">EUR</option>
-    </select>
+/* BANK DROPDOWN */
 
-    <!-- DIRECTION BUTTONS -->
-    <div class="direction-buttons">
-        <button id="toAMD" class="active">To AMD</button>
-        <button id="fromAMD">From AMD</button>
-    </div>
+.bank-dropdown {
+    position: relative;
+}
 
-    <!-- AMOUNT -->
-    <label>Amount:</label>
-    <input type="number" id="amountInput" placeholder="Enter amount">
+.bank-selected {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px;
+    border: 1px solid #d0d0d0;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #fff;
+}
 
-    <!-- RESULT -->
-    <label>Result:</label>
-    <input type="text" id="resultOutput" readonly>
+.bank-logo-small {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    object-fit: cover;
+}
 
-    <!-- RATES -->
+.bank-list {
+    position: absolute;
+    top: 55px;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border: 1px solid #d0d0d0;
+    border-radius: 8px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+    z-index: 10;
+}
+
+.bank-item {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.bank-item:hover {
+    background: #f0f0f0;
+}
+
+.hidden {
+    display: none;
+}
+
+/* DIRECTION BUTTONS */
+
+.direction-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.direction-buttons button {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    background: #e0e0e0;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.direction-buttons button.active {
+    background: #007bff;
+    color: white;
+}
+
+/* RATES */
+
+.rates-display {
+    margin-top: 15px;
+    text-align: center;
+    font-weight: bold;
+}
