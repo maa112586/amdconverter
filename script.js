@@ -35,17 +35,20 @@ const bankItems = document.querySelectorAll(".bank-item");
 const reverseBtn = document.getElementById("reverseBtn");
 
 function updateFlags() {
-    const fromOption = currencyFrom.selectedOptions[0];
-    const toOption = currencyTo.selectedOptions[0];
-
-    flagFrom.src = fromOption.dataset.flag;
-    flagTo.src = toOption.dataset.flag;
+    flagFrom.src = currencyFrom.selectedOptions[0].dataset.flag;
+    flagTo.src = currencyTo.selectedOptions[0].dataset.flag;
 }
 
 function updateRates() {
     const bank = bankSelectedName.textContent;
     const r = rates[bank];
-    ratesDiv.innerHTML = `USD: Buy ${r.USD.buy} / Sell ${r.USD.sell} • EUR: Buy ${r.EUR.buy} / Sell ${r.EUR.sell}`;
+
+    const from = currencyFrom.value;
+    const to = currencyTo.value;
+
+    ratesDiv.innerHTML =
+        `${from}: Buy ${r[from]?.buy || "-"} / Sell ${r[from]?.sell || "-"} • ` +
+        `${to}: Buy ${r[to]?.buy || "-"} / Sell ${r[to]?.sell || "-"}`;
 }
 
 function convertCurrencyPair() {
@@ -101,11 +104,13 @@ bankItems.forEach(item => {
 
 currencyFrom.onchange = () => {
     updateFlags();
+    updateRates();
     convertCurrencyPair();
 };
 
 currencyTo.onchange = () => {
     updateFlags();
+    updateRates();
     convertCurrencyPair();
 };
 
@@ -117,6 +122,7 @@ reverseBtn.onclick = () => {
     currencyTo.value = temp;
 
     updateFlags();
+    updateRates();
     convertCurrencyPair();
 };
 
