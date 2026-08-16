@@ -35,8 +35,15 @@ const bankItems = document.querySelectorAll(".bank-item");
 const reverseBtn = document.getElementById("reverseBtn");
 
 function updateFlags() {
-    flagFrom.src = currencyFrom.selectedOptions[0].dataset.flag;
-    flagTo.src = currencyTo.selectedOptions[0].dataset.flag;
+    const fromOption = currencyFrom.selectedOptions[0];
+    const toOption = currencyTo.selectedOptions[0];
+
+    if (fromOption && fromOption.dataset.flag) {
+        flagFrom.src = fromOption.dataset.flag;
+    }
+    if (toOption && toOption.dataset.flag) {
+        flagTo.src = toOption.dataset.flag;
+    }
 }
 
 function updateRates() {
