@@ -71,3 +71,106 @@ bankItems.forEach(item => {
         bankSelectedLogo.src = bankLogos[bank];
         bankList.classList.add("hidden");
         updateRates();
+        convert();
+    });
+});
+
+
+// ------------------------------
+// UPDATE FLAGS
+// ------------------------------
+currencyFrom.addEventListener("change", () => {
+    flagFrom.src = currencyFrom.selectedOptions[0].dataset.flag;
+    convert();
+});
+
+currencyTo.addEventListener("change", () => {
+    flagTo.src = currencyTo.selectedOptions[0].dataset.flag;
+    convert();
+});
+
+
+// ------------------------------
+// REVERSE BUTTON — ORIGINAL WORKING VERSION
+// ------------------------------
+reverseBtn.addEventListener("click", () => {
+    const tempCurrency = currencyFrom.value;
+    currencyFrom.value = currencyTo.value;
+    currencyTo.value = tempCurrency;
+
+    const tempFlag = flagFrom.src;
+    flagFrom.src = flagTo.src;
+    flagTo.src = tempFlag;
+
+    convert();
+});
+
+
+// ------------------------------
+// UPDATE RATES DISPLAY
+// ------------------------------
+function updateRates() {
+    const bank = bankSelectedName.textContent;
+    const from = currencyFrom.value;
+
+    const bankRates = rates[bank][from];
+
+    if (bankRates.buy === "-") {
+        ratesDiv.textContent = `${from}: No rate available`;
+    } else {
+        ratesDiv.textContent = `${from}: Buy ${bankRates.buy} / Sell ${bankRates.sell}`;
+    }
+}
+
+
+// ------------------------------
+// CONVERSION LOGIC
+// ------------------------------
+function convert() {
+    const bank = bankSelectedName.textContent;
+    const from = currencyFrom.value;
+    const to = currencyTo.value;
+    const amount = parseFloat(amountFrom.value);
+
+    if (isNaN(amount)) {
+        amountTo.textContent = "0.00";
+        return;
+    }
+
+    const bankRates = rates[bank];
+
+    if (from === to) {
+        amountTo.textContent = amount.toFixed(2);
+        return;
+    }
+
+    // USD → AMD or EUR → AMD
+    if (to === "AMD") {
+        const sellRate = bankRates[from].sell;
+        amountTo.textContent = (amount * sellRate).toFixed(2);
+        return;
+    }
+
+    // AMD → USD or AMD → EUR
+    if (from === "AMD") {
+        const buyRate = bankRates[to].buy;
+        amountTo.textContent = (amount / buyRate).toFixed(2);
+        return;
+    }
+
+    // USD ↔ EUR cross conversion
+    const sellRateFrom = bankRates[from].sell;
+    const buyRateTo = bankRates[to].buy;
+
+    const amdValue = amount * sellRateFrom;
+    const finalValue = amdValue / buyRateTo;
+
+    amountTo.textContent = finalValue.toFixed(2);
+}
+
+
+// ------------------------------
+// INITIAL LOAD
+// ------------------------------
+updateRates();
+convert();
