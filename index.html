@@ -15,14 +15,34 @@
 <div id="flagRow"></div>
 
 <label>Bank:</label>
-<select id="bankSelect">
-    <option value="Acba Bank">Acba Bank</option>
-    <option value="Ameriabank">Ameriabank</option>
-    <option value="IDBank">IDBank</option>
-    <option value="Fast Bank">Fast Bank</option>
-    <option value="Inecobank">Inecobank</option>
-    <option value="Evocabank">Evocabank</option>
-</select>
+<div class="bank-dropdown">
+    <div id="bankSelected" class="bank-selected">
+        <img id="bankSelectedLogo" class="bank-logo-small" src="icons/acba.png">
+        <span id="bankSelectedName">Acba Bank</span>
+    </div>
+
+    <div id="bankList" class="bank-list hidden">
+        <div class="bank-item" data-bank="Acba Bank">
+            <img src="icons/acba.png" class="bank-logo-small"> Acba Bank
+        </div>
+        <div class="bank-item" data-bank="Ameriabank">
+            <img src="icons/ameria.png" class="bank-logo-small"> Ameriabank
+        </div>
+        <div class="bank-item" data-bank="IDBank">
+            <img src="icons/idbank.png" class="bank-logo-small"> IDBank
+        </div>
+        <div class="bank-item" data-bank="Fast Bank">
+            <img src="icons/fastbank.png" class="bank-logo-small"> Fast Bank
+        </div>
+        <div class="bank-item" data-bank="Inecobank">
+            <img src="icons/ineco.png" class="bank-logo-small"> Inecobank
+        </div>
+        <div class="bank-item" data-bank="Evocabank">
+            <img src="icons/evoca.png" class="bank-logo-small"> Evocabank
+        </div>
+    </div>
+</div>
+
 
 <label>Currency:</label>
 <select id="currencySelect">
