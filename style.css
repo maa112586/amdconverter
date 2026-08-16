@@ -1,140 +1,68 @@
-body {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    background: #f5f5f5;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AMD Converter</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-.card {
-    background: #ffffff;
-    padding: 20px;
-    border-radius: 14px;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
-    width: 320px;
-}
+<div class="container">
 
-.header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 10px;
-}
+    <h2>AMD Converter</h2>
 
-.bank-logo {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    object-fit: cover;
-}
+    <!-- FLAGS -->
+    <div id="flagRow" class="flag-row"></div>
 
+    <!-- BANK DROPDOWN -->
+    <label>Bank:</label>
+    <div class="bank-dropdown">
+        <div id="bankSelected" class="bank-selected">
+            <img id="bankSelectedLogo" class="bank-logo-small" src="icons/acba.png">
+            <span id="bankSelectedName">Acba Bank</span>
+        </div>
 
-h2 {
-    margin: 0;
-    font-size: 18px;
-}
+        <div id="bankList" class="bank-list hidden">
+            <div class="bank-item" data-bank="Acba Bank">
+                <img src="icons/acba.png" class="bank-logo-small"> Acba Bank
+            </div>
+            <div class="bank-item" data-bank="Ameriabank">
+                <img src="icons/ameria.png" class="bank-logo-small"> Ameriabank
+            </div>
+            <div class="bank-item" data-bank="IDBank">
+                <img src="icons/idbank.png" class="bank-logo-small"> IDBank
+            </div>
+            <div class="bank-item" data-bank="Fast Bank">
+                <img src="icons/fastbank.png" class="bank-logo-small"> Fast Bank
+            </div>
+            <div class="bank-item" data-bank="Inecobank">
+                <img src="icons/ineco.png" class="bank-logo-small"> Inecobank
+            </div>
+            <div class="bank-item" data-bank="Evocabank">
+                <img src="icons/evoca.png" class="bank-logo-small"> Evocabank
+            </div>
+        </div>
+    </div>
 
-label {
-    margin-top: 10px;
-    display: block;
-    font-size: 13px;
-    color: #555;
-}
+    <!-- CURRENCY -->
+    <label>Currency:</label>
+    <select id="currencySelect">
+        <option value="USD">USD</option>
+        <option value="EUR">EUR</option>
+    </select>
 
-input,
-select,
-button {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    border-radius: 8px;
-    border: 1px solid #d0d0d0;
-    font-size: 14px;
-    box-sizing: border-box;
-}
+    <!-- DIRECTION BUTTONS -->
+    <div class="direction-buttons">
+        <button id="toAMD" class="active">To AMD</button>
+        <button id="fromAMD">From AMD</button>
+    </div>
 
-input:focus,
-select:focus,
-button:focus {
-    outline: none;
-    border-color: #2f80ed;
-}
+    <!-- AMOUNT -->
+    <label>Amount:</label>
+    <input type="number" id="amountInput" placeholder="Enter amount">
 
-.toggle {
-    display: flex;
-    gap: 8px;
-    margin-top: 10px;
-}
+    <!-- RESULT -->
+    <label>Result:</label>
+    <input type="text" id="resultOutput" readonly>
 
-.toggle button {
-    flex: 1;
-    cursor: pointer;
-    border-radius: 999px;
-    border: 1px solid #d0d0d0;
-    background: #f7f7f7;
-}
-
-.toggle button.active {
-    background: #2f80ed;
-    color: #fff;
-    border-color: #2f80ed;
-}
-
-#rates {
-    margin-top: 15px;
-    font-size: 13px;
-    text-align: center;
-    color: #666;
-}
-
-.bank-dropdown {
-    position: relative;
-}
-
-.bank-selected {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px;
-    border: 1px solid #d0d0d0;
-    border-radius: 8px;
-    cursor: pointer;
-    background: #fff;
-}
-
-.bank-logo-small {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-.bank-list {
-    position: absolute;
-    top: 45px;
-    left: 0;
-    right: 0;
-    background: #fff;
-    border: 1px solid #d0d0d0;
-    border-radius: 8px;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.1);
-    z-index: 10;
-}
-
-.bank-item {
-    padding: 8px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    cursor: pointer;
-}
-
-.bank-item:hover {
-    background: #f0f0f0;
-}
-
-.hidden {
-    display: none;
-}
+    <!-- RATES -->
