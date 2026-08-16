@@ -7,8 +7,7 @@ async function fetchBankRates() {
         const response = await fetch("https://acba.am/api/exchange-rates");
         const data = await response.json();
 
-        // Build the same structure your converter already expects
-        const bankRates = {
+        return {
             "Acba Bank": {
                 USD: {
                     buy: data.rates.USD.buy,
@@ -18,22 +17,9 @@ async function fetchBankRates() {
                     buy: data.rates.EUR.buy,
                     sell: data.rates.EUR.sell
                 },
-                AMD: {
-                    buy: 1,
-                    sell: 1
-                }
-            },
-
-            // Other banks remain present so your UI doesn't break,
-            // but they return null so your converter won't crash.
-            "Ameriabank": null,
-            "IDBank": null,
-            "Fast Bank": null,
-            "Inecobank": null,
-            "Evocabank": null
+                AMD: { buy: 1, sell: 1 }
+            }
         };
-
-        return bankRates;
 
     } catch (err) {
         console.error("Failed to fetch Acba rates:", err);
@@ -42,7 +28,7 @@ async function fetchBankRates() {
 }
 
 // ===============================
-// BANK DROPDOWN
+// BANK DROPDOWN (VISUALLY SAME, FUNCTIONALLY LOCKED TO ACBA)
 // ===============================
 
 const bankSelected = document.getElementById("bankSelected");
@@ -50,20 +36,18 @@ const bankList = document.getElementById("bankList");
 const bankSelectedName = document.getElementById("bankSelectedName");
 const bankSelectedLogo = document.getElementById("bankSelectedLogo");
 
+// Force Acba as the only bank
+bankSelectedName.textContent = "Acba Bank";
+
+// Disable dropdown opening
 bankSelected.onclick = () => {
-    bankList.classList.toggle("hidden");
+    // Do nothing — dropdown stays visually present but non-interactive
 };
 
+// Disable clicking other banks
 document.querySelectorAll(".bank-item").forEach(item => {
     item.onclick = () => {
-        const bank = item.dataset.bank;
-        const logo = item.querySelector("img").src;
-
-        bankSelectedName.textContent = bank;
-        bankSelectedLogo.src = logo;
-
-        bankList.classList.add("hidden");
-        updateConversion();
+        // Do nothing — prevents switching away from Acba
     };
 });
 
@@ -122,7 +106,7 @@ async function updateConversion() {
         return;
     }
 
-    const bank = bankSelectedName.textContent.trim();
+    const bank = "Acba Bank"; // Hard‑locked
     const from = currencyFrom.value;
     const to = currencyTo.value;
 
@@ -135,7 +119,6 @@ async function updateConversion() {
 
     let result;
 
-    // Rate.am logic:
     // Foreign → AMD = BUY
     // AMD → Foreign = SELL
 
