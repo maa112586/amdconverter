@@ -71,7 +71,6 @@ bankItems.forEach(item => {
         bankSelectedLogo.src = bankLogos[bank];
         bankList.classList.add("hidden");
         updateRates();
-        convert();
     });
 });
 
@@ -107,10 +106,11 @@ reverseBtn.addEventListener("click", () => {
 
 
 // ------------------------------
-// REMOVE BUY/SELL COMPLETELY
+// REMOVE BUY/SELL + RESTORE CONVERSION
 // ------------------------------
 function updateRates() {
-    ratesDiv.textContent = ""; // FIX: no buy/sell text at all
+    ratesDiv.textContent = "";  // no buy/sell
+    convert();                  // FIX: conversion works again
 }
 
 
