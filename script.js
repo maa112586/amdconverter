@@ -144,3 +144,4 @@ amountFrom.oninput = updateConversion;
 
 // Initial load
 updateConversion();
+
