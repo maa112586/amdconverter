@@ -11,9 +11,6 @@
 
     <h2>AMD Converter</h2>
 
-    <!-- FLAGS -->
-    <div id="flagRow" class="flag-row"></div>
-
     <!-- BANK DROPDOWN -->
     <label>Bank:</label>
     <div class="bank-dropdown">
@@ -44,26 +41,30 @@
         </div>
     </div>
 
-    <!-- CURRENCY -->
-    <label>Currency:</label>
-    <select id="currencySelect">
-        <option value="USD">USD</option>
-        <option value="EUR">EUR</option>
-    </select>
+    <!-- CURRENCY PAIR -->
+    <div class="currency-pair">
+        <div class="currency-box">
+            <label>From:</label>
+            <select id="currencyFrom">
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+                <option value="AMD">AMD</option>
+            </select>
 
-    <!-- DIRECTION BUTTONS -->
-    <div class="direction-buttons">
-        <button id="toAMD" class="active">To AMD</button>
-        <button id="fromAMD">From AMD</button>
+            <input type="number" id="amountFrom" placeholder="Enter amount">
+        </div>
+
+        <div class="currency-box">
+            <label>To:</label>
+            <select id="currencyTo">
+                <option value="AMD">AMD</option>
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+            </select>
+
+            <input type="text" id="amountTo" readonly>
+        </div>
     </div>
-
-    <!-- AMOUNT -->
-    <label>Amount:</label>
-    <input type="number" id="amountInput" placeholder="Enter amount">
-
-    <!-- RESULT -->
-    <label>Result:</label>
-    <input type="text" id="resultOutput" readonly>
 
     <!-- RATES -->
     <div id="rates" class="rates-display"></div>
