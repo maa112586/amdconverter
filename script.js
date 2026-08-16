@@ -8,12 +8,12 @@ const bankLogos = {
 };
 
 const rates = {
-    "Acba Bank": { USD: { buy: 385, sell: 392 }, EUR: { buy: 415, sell: 422 } },
-    "Ameriabank": { USD: { buy: 386, sell: 393 }, EUR: { buy: 416, sell: 423 } },
-    "IDBank": { USD: { buy: 384, sell: 391 }, EUR: { buy: 414, sell: 421 } },
-    "Fast Bank": { USD: { buy: 387, sell: 394 }, EUR: { buy: 417, sell: 424 } },
-    "Inecobank": { USD: { buy: 383, sell: 390 }, EUR: { buy: 413, sell: 420 } },
-    "Evocabank": { USD: { buy: 382, sell: 389 }, EUR: { buy: 412, sell: 419 } }
+    "Acba Bank": { USD: { buy: 385, sell: 392 }, EUR: { buy: 415, sell: 422 }, AMD: { buy: "-", sell: "-" } },
+    "Ameriabank": { USD: { buy: 386, sell: 393 }, EUR: { buy: 416, sell: 423 }, AMD: { buy: "-", sell: "-" } },
+    "IDBank": { USD: { buy: 384, sell: 391 }, EUR: { buy: 414, sell: 421 }, AMD: { buy: "-", sell: "-" } },
+    "Fast Bank": { USD: { buy: 387, sell: 394 }, EUR: { buy: 417, sell: 424 }, AMD: { buy: "-", sell: "-" } },
+    "Inecobank": { USD: { buy: 383, sell: 390 }, EUR: { buy: 413, sell: 420 }, AMD: { buy: "-", sell: "-" } },
+    "Evocabank": { USD: { buy: 382, sell: 389 }, EUR: { buy: 412, sell: 419 }, AMD: { buy: "-", sell: "-" } }
 };
 
 const currencyFrom = document.getElementById("currencyFrom");
@@ -46,9 +46,8 @@ function updateRates() {
     const from = currencyFrom.value;
     const to = currencyTo.value;
 
-    ratesDiv.innerHTML =
-        `${from}: Buy ${r[from]?.buy || "-"} / Sell ${r[from]?.sell || "-"} • ` +
-        `${to}: Buy ${r[to]?.buy || "-"} / Sell ${r[to]?.sell || "-"}`;
+    // Only show relevant info
+    ratesDiv.innerHTML = `${from}: Buy ${r[from].buy} / Sell ${r[from].sell}`;
 }
 
 function convertCurrencyPair() {
