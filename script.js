@@ -1,32 +1,33 @@
 // ===============================
-// FETCH LIVE BANK RATES FROM RATE.AM (v3)
+// FETCH GLOBAL FX RATES (Frankfurter API)
 // ===============================
 
-async function fetchBankRates() {
-    const url = "https://rate.am/ws/mobile/v3/rates";
-
+async function fetchFxRates() {
     try {
-        const response = await fetch(url);
-        const data = await response.json();
+        // Fetch USD and EUR relative to AMD
+        const usdRes = await fetch("https://api.frankfurter.app/latest?from=USD&to=AMD");
+        const eurRes = await fetch("https://api.frankfurter.app/latest?from=EUR&to=AMD");
 
-        const acba = data.banks.find(b => b.name === "Acba Bank");
+        const usdData = await usdRes.json();
+        const eurData = await eurRes.json();
 
         return {
-            "Acba Bank": {
-                USD: {
-                    buy: acba.rates.USD.buy,
-                    sell: acba.rates.USD.sell
-                },
-                EUR: {
-                    buy: acba.rates.EUR.buy,
-                    sell: acba.rates.EUR.sell
-                },
-                AMD: { buy: 1, sell: 1 }
+            USD: {
+                buy: usdData.rates.AMD,   // USD → AMD
+                sell: usdData.rates.AMD   // same for global FX
+            },
+            EUR: {
+                buy: eurData.rates.AMD,   // EUR → AMD
+                sell: eurData.rates.AMD
+            },
+            AMD: {
+                buy: 1,
+                sell: 1
             }
         };
 
     } catch (err) {
-        console.error("Failed to fetch bank rates:", err);
+        console.error("Failed to fetch FX rates:", err);
         return null;
     }
 }
@@ -40,7 +41,7 @@ const bankList = document.getElementById("bankList");
 const bankSelectedName = document.getElementById("bankSelectedName");
 const bankSelectedLogo = document.getElementById("bankSelectedLogo");
 
-// Force Acba as the only bank
+// Force Acba as the only bank (visual only)
 bankSelectedName.textContent = "Acba Bank";
 
 // Disable dropdown opening
@@ -100,35 +101,25 @@ async function updateConversion() {
         return;
     }
 
-    const bankRates = await fetchBankRates();
-    if (!bankRates) {
+    const rates = await fetchFxRates();
+    if (!rates) {
         amountTo.textContent = "Error";
         return;
     }
 
-    const bank = "Acba Bank"; // locked
     const from = currencyFrom.value;
     const to = currencyTo.value;
 
-    const rates = bankRates[bank];
-
-    if (!rates || !rates[from] || !rates[to]) {
-        amountTo.textContent = "0.00";
-        return;
-    }
-
     let result;
 
-    // Foreign → AMD = BUY
-    // AMD → Foreign = SELL
-
+    // Global FX logic (simple direct conversion)
     if (from === "AMD" && to !== "AMD") {
-        result = amount / rates[to].sell;
+        result = amount / rates[to].buy;
     } else if (from !== "AMD" && to === "AMD") {
         result = amount * rates[from].buy;
     } else if (from !== "AMD" && to !== "AMD") {
         const amdValue = amount * rates[from].buy;
-        result = amdValue / rates[to].sell;
+        result = amdValue / rates[to].buy;
     } else {
         result = amount;
     }
@@ -144,4 +135,3 @@ amountFrom.oninput = updateConversion;
 
 // Initial load
 updateConversion();
-
